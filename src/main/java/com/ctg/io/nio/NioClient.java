@@ -1,4 +1,6 @@
-package com.ctg.io.comp;
+package com.ctg.io.nio;
+
+import com.ctg.io.exception.TryCatchFinally;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -11,6 +13,7 @@ import java.util.*;
  * 个人感觉客户端nio的必要性不是很大，一般客户端不需要很多TCP链接，但这也要看应用场景，不过作为demo可以实现一个玩玩。
  * Created by liyh on 2016/5/18.
  */
+//todo 尚未实现
 public class NioClient {
 
     private String host;

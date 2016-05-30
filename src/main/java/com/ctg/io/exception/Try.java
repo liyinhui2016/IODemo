@@ -1,4 +1,4 @@
-package com.ctg.io.nio.exception;
+package com.ctg.io.exception;
 
 /**
  * Created by liyh on 2016/5/19.

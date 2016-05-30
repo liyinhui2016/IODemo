@@ -1,4 +1,4 @@
-package com.ctg.io.comp;
+package com.ctg.io.util;
 
 /**
  * Created by liyh on 2016/5/30.

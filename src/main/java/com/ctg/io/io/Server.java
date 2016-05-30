@@ -3,7 +3,7 @@ package com.ctg.io.io;
 import com.ctg.io.comp.IIOSession;
 import com.ctg.io.comp.INioSession;
 import com.ctg.io.comp.IOSession;
-import com.ctg.io.comp.TryCatchFinally;
+import com.ctg.io.exception.TryCatchFinally;
 
 import java.io.IOException;
 import java.io.InputStream;

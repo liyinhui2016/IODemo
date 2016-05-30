@@ -1,8 +1,8 @@
-package com.ctg.io.comp;
+package com.ctg.io.exception;
 
-import com.ctg.io.nio.exception.Catch;
-import com.ctg.io.nio.exception.Finally;
-import com.ctg.io.nio.exception.Try;
+import com.ctg.io.exception.Catch;
+import com.ctg.io.exception.Finally;
+import com.ctg.io.exception.Try;
 
 /**
  * Created by liyh on 2016/5/19.
