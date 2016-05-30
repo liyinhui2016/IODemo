@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by liyh on 2016/5/18.
  */
-public class Session extends AbsSession implements INioSession {
+public class NIOSession extends AbsSession implements INioSession {
     /**
      * channel
      */
@@ -21,7 +21,7 @@ public class Session extends AbsSession implements INioSession {
 
 
 
-    public Session(SocketChannel channel){
+    public NIOSession(SocketChannel channel){
         this.channel  = channel;
         this.buffer =  ByteBuffer.allocate(1024);
     }

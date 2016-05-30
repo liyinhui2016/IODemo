@@ -50,7 +50,7 @@ public class NioServer {
                     channel.configureBlocking(false);
                     //当然可以使用其它的selector
                     channel.register(this.selector,SelectionKey.OP_READ);
-                    sessionMap.put(channel,new Session(channel));
+                    sessionMap.put(channel,new NIOSession(channel));
                 }
             },(e)->{
                 e.printStackTrace();

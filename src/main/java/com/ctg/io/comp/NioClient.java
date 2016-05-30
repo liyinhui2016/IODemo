@@ -73,12 +73,7 @@ public class NioClient {
             },()->{});
         }
 
-
     }
 
-
-    public static void main(String[] args) {
-        InetSocketAddress address  = new InetSocketAddress("127.0.0.1",1024);
-    }
 
 }

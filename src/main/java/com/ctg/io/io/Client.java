@@ -1,5 +1,6 @@
 package com.ctg.io.io;
 
+import com.ctg.io.comp.Arr;
 import jdk.internal.util.xml.impl.Input;
 
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class Client {
             out.write(String.format("hello server : %s ",i).getBytes());
             out.flush();
             int len  = in.read(bs);
-            System.out.println("client rec :" + new String(sub(bs,0,len),"UTF-8"));
+            System.out.println("client rec :" + new String(Arr.sub(bs,0,len),"UTF-8"));
             Thread.sleep((long) ((Math.random()*1+1d)*1000));
         }
 
@@ -32,16 +33,7 @@ public class Client {
     }
 
 
-    public static  byte[] sub(byte [] bs ,int start ,int len ){
-        if(bs == null)
-            return  null;
-        if(start + len > bs.length)
-            throw new ArrayIndexOutOfBoundsException();
-        byte [] bss  = new byte[len];
-        for (int i = 0 ; i<len ; ++ i)
-            bss[i] = bs[start+i];
-        return  bss;
-    }
+
 
 
 
