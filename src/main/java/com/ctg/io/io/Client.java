@@ -1,6 +1,6 @@
 package com.ctg.io.io;
 
-import com.ctg.io.comp.Arr;
+import com.ctg.io.util.Arr;
 import jdk.internal.util.xml.impl.Input;
 
 import java.io.IOException;
