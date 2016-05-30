@@ -1,4 +1,5 @@
-package com.ctg.io.nio;
+package com.ctg.io.comp;
+
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -36,7 +37,7 @@ public class NioServer {
     /**
      * 存贮session
      */
-    private Map<SocketChannel,ISession> sessionMap = null;
+    private Map<SocketChannel,INioSession> sessionMap = null;
 
     //handler map .
     public Map<String,Handler> handlerMap = new HashMap<>();
@@ -60,8 +61,10 @@ public class NioServer {
             TryCatchFinally.handle(()->{
                 SocketChannel channel = (SocketChannel) obj.channel();
                 if(channel != null && channel.isOpen()) {
-                    ISession session = NioServer.this.sessionMap.get(channel);
+                    INioSession session = NioServer.this.sessionMap.get(channel);
                     if(session != null){
+                        // 让buffer可写
+                        session.getBuffer().clear();
                         int size = channel.read(session.getBuffer());
                         //此处应该循环读取，为了简单就读一次，假定所有数据包长度不会超过1024
                         if(size > 0){
@@ -70,6 +73,10 @@ public class NioServer {
                             obj.interestOps(obj.interestOps()|SelectionKey.OP_WRITE);
                             session.getBuffer().flip();
                             selector.wakeup();
+                        } else
+                        if(size == -1){
+                            session.getChannel().close();
+                            obj.cancel();
                         }
                     }
                 }
@@ -80,14 +87,17 @@ public class NioServer {
             TryCatchFinally.handle(()->{
                 SocketChannel channel = (SocketChannel) obj.channel();
                 if(channel != null && channel.isOpen()) {
-                    ISession session = NioServer.this.sessionMap.get(channel);
+                    INioSession session = NioServer.this.sessionMap.get(channel);
                     if(session != null){
                         int len = (int) session.getAttr("recLength");
                         byte [] bs = new byte[len];
                         session.getBuffer().get(bs);
                         session.getBuffer().clear();
-                        byte [] msg = ("server rec :"+new String(bs,"utf-8")).getBytes("UTF-8");
+                        byte [] msg = (String.format("server rec : %s , current session is : %s ",new String(bs,"utf-8"),session)).getBytes("UTF-8");
+                        System.out.println(new String(msg));
                         session.getBuffer().put(msg,0,msg.length);
+                        //进入可读模式
+                        session.getBuffer().flip();
                         session.write(session.getBuffer());
                     }
                 }
@@ -146,10 +156,10 @@ public class NioServer {
                 SelectionKey k = iter.next();
                 if (k.isAcceptable()){
                     this.handlerMap.get("accept").handle(k);
-                }
+                } else
                 if(k.isReadable()){
                     this.handlerMap.get("read").handle(k);
-                }
+                } else
                 if(k.isWritable()){
                     this.handlerMap.get("write").handle(k);
                 }
@@ -161,11 +171,9 @@ public class NioServer {
 
 
     public static void main(String[] args) {
-        new Thread(()-> {
-            NioServer server = new NioServer(1024);
-            server.init();
-            server.start();
-        }).start();
+        NioServer server = new NioServer(1024);
+        server.init();
+        server.start();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.ctg.io.nio;
+package com.ctg.io.comp;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -6,7 +6,7 @@ import java.nio.channels.SocketChannel;
 /**
  * Created by liyh on 2016/5/19.
  */
-public interface ISession {
+public interface INioSession extends ISession  {
 
     /**
      * 获取通讯channel
@@ -21,29 +21,10 @@ public interface ISession {
     ByteBuffer getBuffer();
 
     /**
-     * 设置属性
-     * @param key
-     * @param value
-     */
-    void setAttr(String key,Object value);
-
-    /**
-     * 获取属性。
-     * @param key
-     * @return
-     */
-    Object getAttr(String key);
-
-    /**
      * 获取缓冲区buffer size .
      * @return
      */
     int getBufferSize();
 
-    /**
-     * 写数据
-     * @param msg
-     */
-    void write(Object msg);
 
 }

@@ -1,4 +1,4 @@
-package com.ctg.io.nio;
+package com.ctg.io.comp;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by liyh on 2016/5/18.
  */
-public class Session implements ISession {
+public class Session extends AbsSession implements INioSession {
     /**
      * channel
      */
@@ -19,12 +19,10 @@ public class Session implements ISession {
      */
     private ByteBuffer buffer = null;
 
-    public Map<String ,Object> attrMap = new HashMap<>();
 
 
     public Session(SocketChannel channel){
         this.channel  = channel;
-        //写死方便。
         this.buffer =  ByteBuffer.allocate(1024);
     }
 
@@ -43,15 +41,6 @@ public class Session implements ISession {
         return buffer;
     }
 
-    @Override
-    public void setAttr(String key, Object value) {
-        this.attrMap.put(key,value);
-    }
-
-    @Override
-    public Object getAttr(String key) {
-        return attrMap.get(key);
-    }
 
     @Override
     public int getBufferSize() {

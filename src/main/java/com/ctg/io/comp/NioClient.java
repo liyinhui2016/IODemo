@@ -1,4 +1,4 @@
-package com.ctg.io.nio;
+package com.ctg.io.comp;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
