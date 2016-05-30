@@ -33,6 +33,7 @@ public class Server {
         while (true){
             //listen
             Socket socket = serverSocket.accept();
+            //一个客户端，一个线程
             new Thread(()->{
                 byte [] bs = new byte[1024];
                 TryCatchFinally.handle(()->{
