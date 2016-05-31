@@ -98,7 +98,7 @@ public class NioServer {
                         byte [] bs = new byte[len];
                         session.getBuffer().get(bs);
                         session.getBuffer().clear();
-                        byte [] msg = (String.format("server rec : %s , current session is : %s ",new String(bs,"utf-8"),session)).getBytes("UTF-8");
+                        byte [] msg = (String.format("server rec : %s , current session is : %s ,Thread id is : %s ",new String(bs,"utf-8"),session,Thread.currentThread().getId())).getBytes("UTF-8");
                         System.out.println(new String(msg));
                         session.getBuffer().put(msg,0,msg.length);
                         //进入可读模式
