@@ -43,7 +43,7 @@ public class Server {
                     while (true){
                         //读取客户端内容
                         int len = in.read(bs);
-                        byte [] msg = (String.format("server rec : %s , current session is : %s ",new String(bs,"utf-8"),session)).getBytes("UTF-8");
+                        byte [] msg = (String.format("server rec : %s , current session is : %s,Current thread id is : %s  ",new String(bs,"utf-8"),session,Thread.currentThread().getId())).getBytes("UTF-8");
                         System.out.println(new String(msg));
                         //写给客户端。
                         out.write(msg);
